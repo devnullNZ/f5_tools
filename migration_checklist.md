@@ -9,7 +9,7 @@
 
 ## 2. Build the rxx00 pair
 - [ ] Rack, cable, base-license the rxx00 pair (do this *before* restoring config — base registration key is tied to hardware, not portable from the old device).
-- [ ] Install target TMOS version on both r5800 nodes.
+- [ ] Install target TMOS version on both rxx00 nodes.
 - [ ] Restore the UCS onto **node 1 only** of the new pair.
 - [ ] Re-check module provisioning (`tmsh list sys provision`) — confirm LTM only, matching source.
 - [ ] Verify VLAN/interface bindings came across correctly given any interface renumbering.
@@ -30,7 +30,7 @@
 - [ ] Confirm route domains (if in use per-partition) came across and are bound to the correct VLANs.
 
 ## 5. Post-cutover live validation
-- [ ] Run `f5_validate_migration.py live --target <dc>_r5800_postmigration.json --host <new-pair-mgmt-ip> --user <user>`
+- [ ] Run `f5_validate_migration.py live --target <dc>_rxx00_postmigration.json --host <new-pair-mgmt-ip> --user <user>`
 - [ ] Confirm every snat-translation shows non-zero `totConns` once real traffic ramps — a structural match doesn't prove SNAT is actually being used; this is the check that does.
 - [ ] Spot-check pool member health per partition (`tmsh show ltm pool members` or via REST `/mgmt/tm/ltm/pool/~part~name/members/stats`) to confirm monitors are passing from the new hardware's egress paths (SNAT address changes can affect monitor source IP visibility if ACLs upstream are IP-specific).
 - [ ] Decommission old ixx00 pair only after a full traffic-cycle (peak + off-peak) has been validated clean.
