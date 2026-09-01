@@ -5,8 +5,8 @@ f5_inventory.py — Snapshot LTM configuration from a BIG-IP device, across all
 
 Purpose
 -------
-Run this against each i5800 (or the active member of each HA pair) BEFORE
-the migration to capture a baseline. Run it again against each r5800 pair
+Run this against each ixx00 (or the active member of each HA pair) BEFORE
+the migration to capture a baseline. Run it again against each rxx00 pair
 AFTER the UCS restore + re-provisioning + relicensing to capture the
 post-migration state. Feed both JSON files into f5_validate_migration.py.
 
@@ -18,7 +18,7 @@ Usage
 -----
     export F5_PASSWORD=xxxxx
     python3 f5_inventory.py --host bigip-dc1-a.example.com --user admin \
-        --partitions all -o dc1_i5800_baseline.json
+        --partitions all -o dc1_ixx00_baseline.json
 
     python3 f5_inventory.py --host bigip-dc1-a.example.com --user admin \
         --partitions PartitionA,PartitionB -o partial.json

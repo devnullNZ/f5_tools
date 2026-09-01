@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-f5_validate_migration.py — Compare a baseline (i5800) inventory snapshot
-against a post-migration (r5800) snapshot produced by f5_inventory.py, and
+f5_validate_migration.py — Compare a baseline (ixx00) inventory snapshot
+against a post-migration (rxx00) snapshot produced by f5_inventory.py, and
 optionally do a live SNAT traffic check against the new pair.
 
 Modes
@@ -11,7 +11,7 @@ diff   Structural comparison of the two JSON snapshots: missing/extra
        Includes a dedicated SNAT section (snatpools, snat-translations,
        and each virtual's sourceAddressTranslation binding).
 
-live   Connects to the target (r5800) and pulls stats for every
+live   Connects to the target (rxx00) and pulls stats for every
        snat-translation and virtual server to confirm traffic is actually
        flowing through the new SNAT addresses post-cutover — a structural
        match doesn't prove traffic is using it.
@@ -19,11 +19,11 @@ live   Connects to the target (r5800) and pulls stats for every
 Usage
 -----
     python3 f5_validate_migration.py diff \
-        --baseline dc1_i5800_baseline.json --target dc1_r5800_postmigration.json
+        --baseline dc1_ixx00_baseline.json --target dc1_rxx00_postmigration.json
 
     export F5_PASSWORD=xxxxx
     python3 f5_validate_migration.py live \
-        --target dc1_r5800_postmigration.json --host bigip-dc1-a-new.example.com --user admin
+        --target dc1_rxx00_postmigration.json --host bigip-dc1-a-new.example.com --user admin
 """
 
 import argparse
@@ -230,7 +230,7 @@ def main():
 
     l = sub.add_parser("live")
     l.add_argument("--target", required=True, help="Post-migration snapshot JSON (defines what to check)")
-    l.add_argument("--host", required=True, help="r5800 mgmt host to query live stats from")
+    l.add_argument("--host", required=True, help="rxx00 mgmt host to query live stats from")
     l.add_argument("--user", required=True)
     l.add_argument("--verify-tls", action="store_true")
 
